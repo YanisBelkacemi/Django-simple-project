@@ -1,0 +1,50 @@
+{% extends 'Main/base.html' %}
+
+{% block content %}
+<form method="post" action="#">
+	<h2>
+		{{ name.name }} :
+	</h2>
+	
+	{% for item in name.item_set.all %}
+		
+	{% if item.done == False %}
+		
+			
+			<ul class="list-group">
+				
+				<li class="list-group-item">
+					<input type="checkbox" name="c{{item.id}}" value="clicked">
+					{{ item }}
+					
+				</li>
+			</ul>
+
+		{% else %}	
+			<ul class="list-group">
+				<li class="list-group-item">
+					<input type="checkbox" name="c{{item.id}}" value="clicked" checked>
+					{{ item }}
+					
+				</li>
+			</ul>
+		{% endif %}
+
+		{% endfor %}
+		<br>
+		<div class="progress">
+  			<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: {{progress}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+		</div>
+		<br>
+		
+			{% csrf_token %}
+			<button name="save" class="btn btn-dark" value="save" >Save</button> <br> <br>
+			<input type="text" name="new">
+			<button name="newItem" class="btn btn-dark" value="newItem"> Add </button>
+			<hr>
+			<button name='delete' class="btn btn-dark" value="delete"> delete This List </button>
+			
+			
+		</form>
+	
+{% endblock %}
